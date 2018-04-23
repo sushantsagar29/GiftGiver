@@ -6,8 +6,8 @@ import Gift from './Gift';
 describe('Gift', () => {
     const mockRemove = jest.fn();
     const id = 1;
-    const  props = {gift: {id}};
-    const gift = shallow(<Gift/>);
+    const props = {gift: {id}, removeGift: mockRemove};
+    const gift = shallow(<Gift {...props}/>);
 
     it('renders properly', () => {
         expect(gift).toMatchSnapshot();
@@ -39,11 +39,11 @@ describe('Gift', () => {
 
     describe('when clicking the `remove gift` button', () => {
         beforeEach(() => {
-            app.find('.btn-remove').simulate('click');
+            gift.find('.btn-remove').simulate('click');
         });
 
         it('calls the removeGift callBack', () => {
-
+            expect(mockRemove).toHaveBeenCalledWith(id);
         });
     });
 });
